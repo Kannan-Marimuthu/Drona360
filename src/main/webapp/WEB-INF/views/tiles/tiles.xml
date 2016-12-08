@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+
+<tiles-definitions>  
+
+ <!-- Simple Home Definition -->
+   <definition name="base-simple-definition" 
+       template="/WEB-INF/views/tiles/layouts/defaultSimpleLayout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="body" value="" />   
+   </definition>  
+
+  <!-- Base Home Definition -->
+   <definition name="base-home-definition" 
+       template="/WEB-INF/views/tiles/layouts/defaultHomeLayout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp" />  
+   </definition>  
+   
+   <!-- Base Definition -->
+   <definition name="base-definition" 
+       template="/WEB-INF/views/tiles/layouts/defaultLayout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp" />   
+       <put-attribute name="menu" value="/WEB-INF/views/tiles/template/defaultMenu.jsp" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp" />  
+   </definition>  
+ 
+   <!-- Welcome Page -->
+   <definition name="welcomePage" extends="base-simple-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/welcome.jsp" />  
+   </definition>  
+   
+   <!-- Contact-us Page -->
+   <definition name="contactus" extends="base-simple-definition">  
+       <put-attribute name="title" value="Contact Us" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/contactus.jsp" />  
+   </definition>  
+   
+   <!-- Login Page -->
+   <definition name="login" extends="base-simple-definition">  
+       <put-attribute name="title" value="Login" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />  
+   </definition>  
+   
+    
+   <!-- Admin Page -->
+   <definition name="admin" extends="base-simple-definition">  
+       <put-attribute name="title" value="Admin" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/admin.jsp" />  
+   </definition>  
+   
+   <definition name="admin" extends="base-simple-definition">  
+       <put-attribute name="title" value="Admin" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/admin.jsp" />  
+   </definition>  
+   
+    <!-- Access Denied Page -->
+   <definition name="accessDenied" extends="base-simple-definition">  
+       <put-attribute name="title" value="AccessDenied" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/user/accessDenied.jsp" />  
+   </definition>  
+      
+     <!-- Users list Page -->
+   <definition name="usersList" extends="base-simple-definition">  
+       <put-attribute name="title" value="usersList" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/user/usersList.jsp" />  
+   </definition>  
+   
+    <definition name="list" extends="base-simple-definition">  
+       <put-attribute name="title" value="usersList" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/user/usersList.jsp" />  
+   </definition> 
+   
+    <!-- New User Page -->
+   <definition name="registration" extends="base-simple-definition">  
+       <put-attribute name="title" value="newUser" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/user/registration.jsp" />  
+   </definition>  
+   
+     <!-- User Success -->
+   <definition name="registrationSuccess" extends="base-simple-definition">  
+       <put-attribute name="title" value="New User" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/user/registrationSuccess.jsp" />  
+   </definition>  
+   
+      <!-- Menu List -->
+   <definition name="activeMenuList" extends="base-simple-definition">  
+       <put-attribute name="title" value="Menu List" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/menu/activeMenuList.jsp" />  
+   </definition>  
+   
+    <definition name="home" extends="base-simple-definition">  
+       <put-attribute name="title" value="Menu List" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/menu/activeMenuList.jsp" />  
+   </definition>  
+ 
+      <!-- Menu List -->
+   <definition name="menuList" extends="base-simple-definition">  
+       <put-attribute name="title" value="Menu List" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/menu/menuList.jsp" />  
+   </definition>  
+    
+ 
+ 
+</tiles-definitions>
