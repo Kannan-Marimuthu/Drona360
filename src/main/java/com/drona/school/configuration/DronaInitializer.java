@@ -35,7 +35,7 @@ public class DronaInitializer extends AbstractAnnotationConfigDispatcherServletI
 
 	// Set these variables for your project needs
 
-	private static final String LOCATION = "C:/mytemp/";
+	private static final String LOCATION = "C:/Users/Kannan/TestProjects";
 
 	private static final long MAX_FILE_SIZE = 1024 * 1024 * 25;// 25MB
 

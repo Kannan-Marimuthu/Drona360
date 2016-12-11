@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -50,6 +51,19 @@ public class MenuGroup {
 	@OneToMany(mappedBy = "menuGroup", cascade = CascadeType.ALL)
 	private List<MenuItems> menuItems;
 
+	/*@Id
+	@OneToOne
+	@JoinColumn(name = "MenuGrp_ID")
+	private User users;
+
+	public User getUsers() {
+		return users;
+	}
+
+	public void setUsers(User users) {
+		this.users = users;
+	}*/
+
 	public List<MenuItems> getMenuItems() {
 		return menuItems;
 	}
@@ -57,7 +71,7 @@ public class MenuGroup {
 	public void setMenuItems(List<MenuItems> menuItems) {
 		this.menuItems = menuItems;
 	}
-	
+
 	public Integer getMenuGrpId() {
 		return menuGrpId;
 	}

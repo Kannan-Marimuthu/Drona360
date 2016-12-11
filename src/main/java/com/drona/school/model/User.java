@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -56,33 +58,46 @@ public class User implements Serializable {
 	@Column(name = "STATE", nullable = false)
 	private String state = State.ACTIVE.getState();
 
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	@Column(name = "userPhoto", nullable = false)
+	private byte[] userPhoto;
+
 	@NotEmpty
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "APP_USER_USER_PROFILE", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "USER_PROFILE_ID") })
 	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
-	/*
-	 * @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) private
-	 * Set<UserDocument> userDocuments = new HashSet<UserDocument>();
-	 * 
-	 * public Set<UserDocument> getUserDocuments() { return userDocuments; }
-	 * 
-	 * public void setUserDocuments(Set<UserDocument> userDocuments) {
-	 * this.userDocuments = userDocuments; }
-	 */
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<UserDocument> userDocuments = new HashSet<UserDocument>();
 
-	/*@OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-	private Set<MenuGroup> userMenuGroup = new HashSet<MenuGroup>();
-	
-	public Set<MenuGroup> getUserMenuGroup() {
-		return userMenuGroup;
+	public Set<UserDocument> getUserDocuments() {
+		return userDocuments;
 	}
 
-	public void setUserMenuGroup(Set<MenuGroup> userMenuGroup) {
-		this.userMenuGroup = userMenuGroup;
-	}*/
-	
+	public void setUserDocuments(Set<UserDocument> userDocuments) {
+		this.userDocuments = userDocuments;
+	}
+
+	/*
+	 * @ManyToMany(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinTable(name = "book_publisher", joinColumns = @JoinColumn(name =
+	 * "book_id", referencedColumnName = "id"), inverseJoinColumns
+	 * = @JoinColumn(name = "publisher_id", referencedColumnName = "id"))
+	 */
+
+	/*
+	 * @OneToOne(mappedBy = "users", cascade = CascadeType.ALL) private
+	 * Set<MenuGroup> userMenuGroup = new HashSet<MenuGroup>();
+	 * 
+	 * public Set<MenuGroup> getUserMenuGroup() { return userMenuGroup; }
+	 * 
+	 * public void setUserMenuGroup(Set<MenuGroup> userMenuGroup) {
+	 * this.userMenuGroup = userMenuGroup; }
+	 */
+
 	public Integer getId() {
 		return id;
 	}
@@ -145,6 +160,14 @@ public class User implements Serializable {
 
 	public void setUserProfiles(Set<UserProfile> userProfiles) {
 		this.userProfiles = userProfiles;
+	}
+
+	public byte[] getUserPhoto() {
+		return userPhoto;
+	}
+
+	public void setUserPhoto(byte[] userPhoto) {
+		this.userPhoto = userPhoto;
 	}
 
 	@Override

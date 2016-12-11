@@ -103,7 +103,11 @@
        <put-attribute name="title" value="Menu List" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/menu/menuList.jsp" />  
    </definition>  
-    
- 
+   
+       <!-- Manage Documents  -->
+   <definition name="manageDocuments" extends="base-simple-definition">  
+       <put-attribute name="title" value="Manage Documents" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/user/manageDocuments.jsp" />  
+   </definition> 
  
 </tiles-definitions>
