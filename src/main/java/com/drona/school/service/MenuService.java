@@ -7,6 +7,8 @@ import com.drona.school.model.MenuItems;
 public interface MenuService {
 
 	MenuItems findById(int id);
+	
+	MenuItems findByName(String menuName);
 
 	void saveMenus(MenuItems menuItems);
 
@@ -15,7 +17,8 @@ public interface MenuService {
 	void deleteMenusByName(String menu);
 
 	List<MenuItems> findAllMenus();
-	
+
 	List<MenuItems> findAllMenusByUserId(Integer menuGrpId);
 
+	boolean isMenuUnique(Integer menuId, String menuName);
 }

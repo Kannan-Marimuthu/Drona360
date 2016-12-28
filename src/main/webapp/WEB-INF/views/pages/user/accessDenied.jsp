@@ -7,9 +7,11 @@
 	<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
-<body background="${pageContext.request.contextPath}/static/img/accessDenied.png">
-	Dear <strong>${user}</strong>, You are not authorized to access this page.
-	<br/>
+<body background="${pageContext.request.contextPath}/static/img/accessDenied.jpg">
+	
+	<img src="${pageContext.request.contextPath}/static/img/accessDenied.jpg" height="300px" width="250px"/>
+	</br>
+	Dear <strong>${activeUser}</strong>, You are not authorized to access this page.	 
 	<a href="<c:url value="/home" />">Go to home</a> OR <a href="<c:url value="/logout" />">Logout</a>
 </body>
 </html>

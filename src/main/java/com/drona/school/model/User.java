@@ -1,6 +1,7 @@
 package com.drona.school.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,6 +55,10 @@ public class User implements Serializable {
 	@Column(name = "EMAIL", nullable = false)
 	private String email;
 
+	
+	@Column(name = "phone", nullable = false)
+	private BigInteger phone;
+
 	@NotEmpty
 	@Column(name = "STATE", nullable = false)
 	private String state = State.ACTIVE.getState();
@@ -69,6 +74,12 @@ public class User implements Serializable {
 			@JoinColumn(name = "USER_PROFILE_ID") })
 	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
+	@NotEmpty
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "MenuGrp_Asgn", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "MenuGrp_ID") })
+	private Set<MenuGroup> userMenuGroups = new HashSet<MenuGroup>();
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<UserDocument> userDocuments = new HashSet<UserDocument>();
 
@@ -80,23 +91,13 @@ public class User implements Serializable {
 		this.userDocuments = userDocuments;
 	}
 
-	/*
-	 * @ManyToMany(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinTable(name = "book_publisher", joinColumns = @JoinColumn(name =
-	 * "book_id", referencedColumnName = "id"), inverseJoinColumns
-	 * = @JoinColumn(name = "publisher_id", referencedColumnName = "id"))
-	 */
+	public BigInteger getPhone() {
+		return phone;
+	}
 
-	/*
-	 * @OneToOne(mappedBy = "users", cascade = CascadeType.ALL) private
-	 * Set<MenuGroup> userMenuGroup = new HashSet<MenuGroup>();
-	 * 
-	 * public Set<MenuGroup> getUserMenuGroup() { return userMenuGroup; }
-	 * 
-	 * public void setUserMenuGroup(Set<MenuGroup> userMenuGroup) {
-	 * this.userMenuGroup = userMenuGroup; }
-	 */
+	public void setPhone(BigInteger phone) {
+		this.phone = phone;
+	}
 
 	public Integer getId() {
 		return id;
@@ -152,6 +153,14 @@ public class User implements Serializable {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public Set<MenuGroup> getUserMenuGroups() {
+		return userMenuGroups;
+	}
+
+	public void setUserMenuGroups(Set<MenuGroup> userMenuGroups) {
+		this.userMenuGroups = userMenuGroups;
 	}
 
 	public Set<UserProfile> getUserProfiles() {

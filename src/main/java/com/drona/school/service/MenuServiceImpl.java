@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.drona.school.dao.MenuDao;
 import com.drona.school.model.MenuItems;
+import com.drona.school.model.User;
 
 @Service("menuService")
 @Transactional
@@ -22,8 +23,7 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	public void saveMenus(MenuItems menuItems) {
-		// TODO Auto-generated method stub
-
+		dao.saveMenus(menuItems);
 	}
 
 	public void updateMenus(MenuItems menuItems) {
@@ -42,6 +42,16 @@ public class MenuServiceImpl implements MenuService {
 
 	public List<MenuItems> findAllMenusByUserId(Integer menuGrpId) {
 		return dao.findAllMenusByUserId(menuGrpId);
+	}
+
+	public boolean isMenuUnique(Integer menuId, String menuName) {
+		MenuItems menuItems = findByName(menuName);
+		return (menuItems == null || ((menuId != null) && (menuItems.getMenuId() == menuId)));
+	}
+
+	public MenuItems findByName(String menuName) {
+		MenuItems menuItems = dao.findByName(menuName);
+		return menuItems;
 	}
 
 }

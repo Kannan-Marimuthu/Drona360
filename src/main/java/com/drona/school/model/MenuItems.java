@@ -1,12 +1,18 @@
 package com.drona.school.model;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -16,8 +22,13 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  */
 @Entity
-@Table(name = "MENUITEMS")
-public class MenuItems {
+@Table(name = "MENU")
+public class MenuItems implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,47 +56,21 @@ public class MenuItems {
 	private String useYorN;
 
 	@NotEmpty
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "MenuGrp_ID")
-	private MenuGroup menuGroup;
+	@Column(name = "Who", nullable = false)
+	private String who;
 
-	public MenuGroup getMenuGroup() {
-		return menuGroup;
+	@NotEmpty
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "MENU_ASGN", joinColumns = { @JoinColumn(name = "Menu_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "MenuGrp_ID") })
+	private Set<MenuGroup> userMenuGroups = new HashSet<MenuGroup>();
+
+	public Set<MenuGroup> getUserMenuGroups() {
+		return userMenuGroups;
 	}
 
-	public void setMenuGroup(MenuGroup menuGroup) {
-		this.menuGroup = menuGroup;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((menuId == null) ? 0 : menuId.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MenuItems other = (MenuItems) obj;
-		if (menuId == null) {
-			if (other.menuId != null)
-				return false;
-		} else if (!menuId.equals(other.menuId))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "MenuItems [menuId=" + menuId + ", menuName=" + menuName + ", menuDisplayTxt=" + menuDisplayTxt
-				+ ", menuFileName=" + menuFileName + ", menuURL=" + menuURL + ", useYorN=" + useYorN + "]";
+	public void setUserMenuGroups(Set<MenuGroup> userMenuGroups) {
+		this.userMenuGroups = userMenuGroups;
 	}
 
 	public Integer getMenuId() {
@@ -134,6 +119,70 @@ public class MenuItems {
 
 	public void setUseYorN(String useYorN) {
 		this.useYorN = useYorN;
+	}
+
+	public String getWho() {
+		return who;
+	}
+
+	public void setWho(String who) {
+		this.who = who;
+	}
+
+	@Override
+	public String toString() {
+		return "MenuItems [menuId=" + menuId + ", menuName=" + menuName + ", menuDisplayTxt=" + menuDisplayTxt
+				+ ", menuFileName=" + menuFileName + ", menuURL=" + menuURL + ", useYorN=" + useYorN + ", who=" + who
+				+ ", userMenuGroups=" + userMenuGroups + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((menuId == null) ? 0 : menuId.hashCode());
+		result = prime * result + ((menuName == null) ? 0 : menuName.hashCode());
+		result = prime * result + ((menuURL == null) ? 0 : menuURL.hashCode());
+		result = prime * result + ((useYorN == null) ? 0 : useYorN.hashCode());
+		result = prime * result + ((who == null) ? 0 : who.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MenuItems other = (MenuItems) obj;
+		if (menuId == null) {
+			if (other.menuId != null)
+				return false;
+		} else if (!menuId.equals(other.menuId))
+			return false;
+		if (menuName == null) {
+			if (other.menuName != null)
+				return false;
+		} else if (!menuName.equals(other.menuName))
+			return false;
+		if (menuURL == null) {
+			if (other.menuURL != null)
+				return false;
+		} else if (!menuURL.equals(other.menuURL))
+			return false;
+		if (useYorN == null) {
+			if (other.useYorN != null)
+				return false;
+		} else if (!useYorN.equals(other.useYorN))
+			return false;
+		if (who == null) {
+			if (other.who != null)
+				return false;
+		} else if (!who.equals(other.who))
+			return false;
+		return true;
 	}
 
 }

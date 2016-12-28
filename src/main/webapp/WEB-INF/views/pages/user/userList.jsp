@@ -12,37 +12,33 @@
 <body>
 	<div class="">
 		<div class="panel panel-default">
-			  <!-- Default panel contents -->
-		  	<div class="panel-heading"><span class="lead">List of Menus </span></div>
+			  <!-- Default panel contents-- generic-container -->
+		  	<div class="panel-heading"><span class="lead">List of Users </span></div>
 			<table class="table table-hover">
 	    		<thead>
 		      		<tr>
-				        <th>MenuName</th>
-				        <th>MenuDisplayTxt</th>
-				        <th>MenuFileName</th>
-				        <th>MenuURL</th>
-				        <th>Active</th>
+				        <th>Firstname</th>
+				        <th>Lastname</th>
+				        <th>Email</th>				        
 				        <th width="100"></th>
 				        <th width="100"></th>
 					</tr>
 		    	</thead>
 	    		<tbody>
-				<c:forEach items="${menuList}" var="menu">
+				<c:forEach items="${userList}" var="user">
 					<tr>
-						<td>${menu.menuName}</td>
-						<td>${menu.menuDisplayTxt}</td>
-						<td>${menu.menuFileName}</td>
-						<td>${menu.menuURL}</td>
-						<td>${menu.useYorN}</td>
-						<td><a href="<c:url value='/edit-menu-${menu.menuId}' />" class="btn btn-success custom-width">edit</a></td>
-						<td><a href="<c:url value='/delete-menu-${menu.menuId}' />" class="btn btn-danger custom-width">delete</a></td>
+						<td>${user.firstName}</td>
+						<td>${user.lastName}</td>
+						<td>${user.email}</td>
+						<td><a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success custom-width">edit</a></td>
+						<td><a href="<c:url value='/delete-user-${user.ssoId}' />" class="btn btn-danger custom-width">delete</a></td>
 					</tr>
 				</c:forEach>
 	    		</tbody>
 	    	</table>
 		</div>
 	 	<div class="well">
-	 		<a href="<c:url value='/newMenu' />">Add New Menu</a>&nbsp;&nbsp;&nbsp;
+	 		<a href="<c:url value='/newUser' />">Add New User</a>&nbsp;&nbsp;&nbsp;
 	 		<a href="<c:url value='/home' />">Cancel</a>
 	 	</div>
    	</div>

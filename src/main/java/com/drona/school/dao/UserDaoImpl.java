@@ -28,6 +28,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 			if (user != null) {
 				initializeCollection(user.getUserProfiles());
+				initializeCollection(user.getUserMenuGroups());
 			}
 			return user;
 		} catch (NoResultException ex) {

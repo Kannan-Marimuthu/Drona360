@@ -3,6 +3,7 @@
  */
 package com.drona.school.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,10 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -25,7 +23,12 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "MENUGRP")
-public class MenuGroup {
+public class MenuGroup implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,30 +50,6 @@ public class MenuGroup {
 	@NotEmpty
 	@Column(name = "Who", nullable = false)
 	private String who;
-
-	@OneToMany(mappedBy = "menuGroup", cascade = CascadeType.ALL)
-	private List<MenuItems> menuItems;
-
-	/*@Id
-	@OneToOne
-	@JoinColumn(name = "MenuGrp_ID")
-	private User users;
-
-	public User getUsers() {
-		return users;
-	}
-
-	public void setUsers(User users) {
-		this.users = users;
-	}*/
-
-	public List<MenuItems> getMenuItems() {
-		return menuItems;
-	}
-
-	public void setMenuItems(List<MenuItems> menuItems) {
-		this.menuItems = menuItems;
-	}
 
 	public Integer getMenuGrpId() {
 		return menuGrpId;

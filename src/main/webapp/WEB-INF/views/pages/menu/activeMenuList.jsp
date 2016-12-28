@@ -62,13 +62,14 @@
 </head>
 <body ng-app="firstApplication">
 	<div class="well">
-		<a href="<c:url value='/home' />">Home</a> &nbsp;&nbsp;&nbsp; <a
-			href="<c:url value='/newUser' />">Add New User</a> &nbsp;&nbsp;&nbsp;
-		<a href="<c:url value='/menuList' />">Add New Menu</a>
-		&nbsp;&nbsp;&nbsp; <a href="<c:url value='/list' />">User List</a>&nbsp;&nbsp;&nbsp;
+		<a href="<c:url value='/home' />">Home</a> &nbsp;&nbsp;&nbsp; 
+		<a href="<c:url value='/newUser' />">Add New User</a> &nbsp;&nbsp;&nbsp;
+		<a href="<c:url value='/list' />">User List</a>&nbsp;&nbsp;&nbsp;
+		<a href="<c:url value='/newMenu' />">Add New Menu</a> &nbsp;&nbsp;&nbsp; 
+		<a href="<c:url value='/menuList' />">Menu List</a> &nbsp;&nbsp;&nbsp; 
 		<a href="<c:url value='/logout' />">Logout</a>
 	</div>
-	<div class="generic-container">
+	<div class="">
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">

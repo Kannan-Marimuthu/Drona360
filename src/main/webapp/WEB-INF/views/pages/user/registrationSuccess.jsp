@@ -10,7 +10,7 @@
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
 <body>
-<div class="generic-container">
+<div class="">
 	<div class="alert alert-success lead">
     	${success}
 	</div>

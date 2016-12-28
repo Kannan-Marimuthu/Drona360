@@ -20,6 +20,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserService userService;
+	
+	
 
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {

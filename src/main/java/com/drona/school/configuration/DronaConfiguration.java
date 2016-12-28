@@ -16,6 +16,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
+import com.drona.school.converter.MenuGroupConverter;
+import com.drona.school.converter.RoleToUserProfileConverter;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.drona.school")
@@ -23,6 +26,9 @@ public class DronaConfiguration extends WebMvcConfigurerAdapter {
 
 	@Autowired
 	RoleToUserProfileConverter roleToUserProfileConverter;
+
+	@Autowired
+	MenuGroupConverter menuGroupConverter;
 
 	@Bean(name = "multipartResolver")
 	public StandardServletMultipartResolver resolver() {
@@ -93,7 +99,9 @@ public class DronaConfiguration extends WebMvcConfigurerAdapter {
 	 */
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		registry.addConverter(roleToUserProfileConverter);
+		registry.addConverter(menuGroupConverter);
 	}
 
 	/*

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<div class="generic-container">
+	<div class="">
 		<div class="panel panel-default">
 			  <!-- Default panel contents -->
 		  	<div class="panel-heading"><span class="lead">List of Documents </span></div>

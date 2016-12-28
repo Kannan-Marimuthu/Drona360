@@ -9,6 +9,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
@@ -22,16 +24,18 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.drona.school.model.FileBucket;
+import com.drona.school.model.MenuGroup;
 import com.drona.school.model.User;
 import com.drona.school.model.UserDocument;
 import com.drona.school.model.UserProfile;
+import com.drona.school.service.MenuGroupService;
 import com.drona.school.service.UserDocumentService;
 import com.drona.school.service.UserProfileService;
 import com.drona.school.service.UserService;
 
 @Controller
 @RequestMapping("/")
-@SessionAttributes("roles")
+@SessionAttributes({"roles", "menuGroups"}) 
 public class UserController {
 
 	@Autowired
@@ -39,6 +43,9 @@ public class UserController {
 
 	@Autowired
 	UserProfileService userProfileService;
+	
+	@Autowired
+	MenuGroupService menuGroupService;
 	
 	@Autowired
 	UserDocumentService userDocumentService;
@@ -53,8 +60,9 @@ public class UserController {
 	public String listUsers(ModelMap model) {
 
 		List<User> users = userService.findAllUsers();
-		model.addAttribute("users", users);
-		return "usersList";
+		model.addAttribute("userList", users);
+		model.addAttribute("activeUser", getPrincipal());
+		return "userList";
 	}
 
 	/**
@@ -65,6 +73,7 @@ public class UserController {
 		User user = new User();
 		model.addAttribute("user", user);
 		model.addAttribute("edit", false);
+		model.addAttribute("activeUser", getPrincipal());
 		return "registration";
 	}
 
@@ -97,9 +106,8 @@ public class UserController {
 		}
 
 		userService.saveUser(user);
-
-		model.addAttribute("success",
-				"User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
+		model.addAttribute("activeUser", getPrincipal());
+		model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
 		return "registrationSuccess";
 	}
 
@@ -111,6 +119,7 @@ public class UserController {
 		User user = userService.findBySSO(ssoId);
 		model.addAttribute("user", user);
 		model.addAttribute("edit", true);
+		model.addAttribute("activeUser", getPrincipal());
 		return "registration";
 	}
 
@@ -137,7 +146,7 @@ public class UserController {
 		 */
 
 		userService.updateUser(user);
-
+		model.addAttribute("activeUser", getPrincipal());
 		model.addAttribute("success",
 				"User " + user.getFirstName() + " " + user.getLastName() + " updated successfully");
 		return "registrationSuccess";
@@ -160,11 +169,17 @@ public class UserController {
 		return userProfileService.findAll();
 	}
 	
+	@ModelAttribute("menuGroups")
+	public List<MenuGroup> initializeMenuGroups() {
+		return menuGroupService.findAllMenuGroup();
+	}
+	
+	
 	@RequestMapping(value = { "/add-document-{userId}" }, method = RequestMethod.GET)
 	public String addDocuments(@PathVariable int userId, ModelMap model) {
 		User user = userService.findById(userId);
 		model.addAttribute("user", user);
-
+		model.addAttribute("activeUser", getPrincipal());
 		FileBucket fileModel = new FileBucket();
 		model.addAttribute("fileBucket", fileModel);
 
@@ -203,7 +218,7 @@ public class UserController {
 
 			List<UserDocument> documents = userDocumentService.findAllByUserId(userId);
 			model.addAttribute("documents", documents);
-			
+			model.addAttribute("activeUser", getPrincipal());
 			return "manageDocuments";
 		} else {
 			
@@ -211,7 +226,7 @@ public class UserController {
 			
 			User user = userService.findById(userId);
 			model.addAttribute("user", user);
-
+			model.addAttribute("activeUser", getPrincipal());
 			saveDocument(fileBucket, user);
 
 			return "redirect:/add-document-"+userId;
@@ -229,5 +244,16 @@ public class UserController {
 		userDocumentService.saveDocument(document);
 	}
 	
+	private String getPrincipal() {
+		String userName = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		if (principal instanceof UserDetails) {
+			userName = ((UserDetails) principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+		return userName;
+	}
 
 }
